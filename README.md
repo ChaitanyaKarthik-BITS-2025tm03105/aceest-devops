@@ -151,18 +151,30 @@ A successful workflow confirms that the linting, image build, and automated test
 
 ## 9. Jenkins CI
 
-Jenkins can be configured to pull this GitHub repository and execute a clean build.
+A Jenkins Freestyle job named `ACEest-Fitness-Build` is configured to automate the project build and testing process.
 
-Recommended job configuration:
+### Job Configuration
 
-1. Create a Jenkins Pipeline job.
-2. Configure the Git repository URL.
-3. Select the `main` branch.
-4. Configure the job to check out the source and execute the required build, lint, Docker, and test commands.
-5. Review the console output to verify the build result.
+- **Source Code Management:** Git
+- **Repository:** https://github.com/ChaitanyaKarthik-BITS-2025tm03105/aceest-devops.git
+- **Branch:** `main`
+- **Workspace:** Cleaned before each build
+- **Build Step:** Execute shell script
 
-The Jenkins job requires Python, Git, Docker, and the necessary permissions on the Jenkins execution environment.
+### Build Pipeline Steps
 
+1. Checks out the latest source code from GitHub.
+2. Creates a Python virtual environment.
+3. Installs project dependencies and Flake8.
+4. Compiles Python files and performs lint checks.
+5. Builds the Docker image `aceest-fitness:jenkins`.
+6. Runs the Pytest suite inside the Docker container.
+
+### Verification
+
+The Jenkins build completed successfully with all seven automated tests passing inside the Docker container.
+
+Jenkins requires Python, Git, Docker, and permission to access the Docker daemon.
 ## 10. Assumptions and Limitations
 
 - The application uses in-memory storage instead of a database.
